@@ -35,3 +35,14 @@ class Order(models.Model):
 
     class Meta:
         ordering = ['-ordered_at']
+
+class Contact(models.Model):
+    name =models.CharField(max_length=500)
+    query =models.CharField(max_length=500)
+    reported_on =models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        ordering  = ['-reported_on']
