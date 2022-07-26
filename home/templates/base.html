@@ -53,7 +53,20 @@
       </nav>
 
     
-        {% block body %}{% endblock %}
+        {% block body %}
+        {% if messages %}
+        {% for msg in messages %}
+      <div class="messages" style="background:lime;">
+        <p>{{msg}}</p>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% if form.errors %}
+      <div class="messages" style="background:lime;">
+    <p>Your username and password didn't match. Please try again.</p>
+    </div>
+  		{% endif %}
+        {% endblock %}
 <br>
         <footer style="display: grid; grid-template-columns: 1fr 1fr 1fr;padding: 10px;" class="bg-primary text-light">
           <h2><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cgkatni</h2>
