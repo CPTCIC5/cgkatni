@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import validate_image_file_extension
 
 categories = {
     ("Laptop","Laptop"),
@@ -11,6 +11,7 @@ categories = {
 class Product(models.Model):
     category=models.CharField(choices=categories,max_length=50)
     model_name=models.CharField(max_length=100)
+    image = models.ImageField(upload_to='Images',validators=[validate_image_file_extension])
     specification=models.TextField()
     price = models.PositiveIntegerField()
     published_at = models.DateTimeField(auto_now_add=True)
@@ -38,11 +39,12 @@ class Order(models.Model):
 
 class Contact(models.Model):
     name =models.CharField(max_length=500)
+    number = models.CharField(max_length=15)
     query =models.CharField(max_length=500)
     reported_on =models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.reported_on.year}-{self.reported_on.month}-{self.reported_on.day}"
     
     class Meta:
         ordering  = ['-reported_on']
